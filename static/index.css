@@ -1,0 +1,260 @@
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #cbb799,#6f4d38,#6f4d38); 
+
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+.label1{
+  color: #6f4d38;
+  
+}
+
+.container {
+    width: 90%;
+    max-width: 80%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+    height: 90vh;
+    overflow: hidden;
+}
+
+.left{
+  flex: 1.5;
+}
+
+.right{
+  flex: 2.5;
+}
+
+.left, .right {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow-y: auto;
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+}
+
+.left::-webkit-scrollbar,
+.right::-webkit-scrollbar {
+    display: none; /* Hide the scrollbar */
+}
+
+.upload-area {
+  border: 2px dashed #6f4d38;
+  padding: 20px;
+  text-align: center; /* Center the overall content */
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.upload-area .file-name,
+.upload-area .preview {
+  text-align: left; /* Align the file name and image to the left */
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 10px;
+  margin-left: 0; /* Align to the left */
+}
+
+.upload-area .preview {
+  max-width: 150px;
+  max-height: 150px;
+  display: block;
+}
+
+
+
+.upload-area img {
+    width: 50px;
+    margin-bottom: 20px;
+}
+
+.upload-area p {
+    font-size: 16px;
+    color: #333;
+    margin: 5px 0;
+}
+
+.upload-area .size-limit {
+    font-size: 14px;
+    color: #6f4d38;
+}
+
+.upload-area input[type="file"] {
+    display: none;
+}
+
+.upload-area label {
+    display: block;
+    margin: 10px 0;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.uploaded-images img {
+    width: 100%;
+    max-width: 300px;
+    margin: 10px 0;
+}
+
+.browse-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #6f4d38;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.browse-button:hover {
+    background-color: #6f4d38;
+}
+
+
+.form-container h2, .form-container h1 {
+    color: #333;
+    margin-bottom: 14px;
+    font-size: 1.3rem;
+}
+
+.form-container label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-container input[type="text"], .paste-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.form-container table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+.form-container table th, .form-container table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.form-container table th {
+    background-color: #f4f4f4;
+}
+
+.form-container button[type="submit"] {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #6f4d38;;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-container button[type="submit"]:hover {
+    background-color: #6f4d38;;
+}
+
+
+.progress-container {
+  width: 100%;
+  background-color: #f3f3f3;
+  margin-top: 20px;
+}
+
+#progress-bar {
+  width: 0;
+  height: 5px;
+  background-color: #168719;
+}
+
+/* Ensure the right section is hidden initially */
+.right {
+  display: none;
+  width: 48%;
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+/* Style for the form container */
+
+
+.form-header h1 {
+  font-size: 1.6rem;
+  color: #333;
+}
+
+.form-body label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-body input[type="text"] {
+  width: 90%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #6f4d38;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.form-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.form-body table th, .form-body table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.form-body table th {
+  background-color: #f4f4f4;
+}
+
+.form-body button[type="submit"] {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color:#6f4d38;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.form-body button[type="submit"]:hover {
+  background-color:#6f4d38;
+}
