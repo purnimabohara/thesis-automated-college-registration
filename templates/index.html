@@ -1,0 +1,867 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>College Registration Form</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='index.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="left">
+        <h2>Upload Documents</h2>
+        <form
+          id="uploadForm"
+          action="{{ url_for('upload_files') }}"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <div class="upload-area">
+            <img
+              src="{{ url_for('static', filename='upload-icon.png') }}"
+              alt="Upload Icon"
+              class="upload-icon"
+            />
+            <label for="certificate">Upload Certificate</label>
+            <input
+              type="file"
+              id="certificate"
+              name="certificate"
+              accept="image/*"
+              required
+            />
+            <img id="certificatePreview" class="preview" />
+            <p>Drag & Drop files or Paste <strong>Ctrl+V</strong> or Upload</p>
+            <p class="size-limit">up to <strong>20 MB</strong> image size</p>
+          </div>
+          <div class="upload-area">
+            <img
+              src="{{ url_for('static', filename='upload-icon.png') }}"
+              alt="Upload Icon"
+              class="upload-icon"
+            />
+            <label for="marksheet">Upload Marksheet</label>
+            <input
+              type="file"
+              id="marksheet"
+              name="marksheet"
+              accept="image/*"
+              required
+            />
+            <img id="marksheetPreview" class="preview" />
+            <p>Drag & Drop files or Paste <strong>Ctrl+V</strong> or Upload</p>
+            <p class="size-limit">up to <strong>20 MB</strong> image size</p>
+          </div>
+          <button type="submit" class="browse-button">Submit</button>
+        </form>
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %} {% endwith %} {% if certificate_path and marksheet_path %}
+        <div class="uploaded-images">
+          <h3>Uploaded Images:</h3>
+          <img
+            src="{{ url_for('static', filename=certificate_path.replace('uploads/', '')) }}"
+            alt="Certificate"
+            width="300"
+          />
+          <img
+            src="{{ url_for('static', filename=marksheet_path.replace('uploads/', '')) }}"
+            alt="Marksheet"
+            width="300"
+          />
+        </div>
+        {% endif %}
+
+        <div class="progress-container">
+          <div id="progress-bar"></div>
+        </div>
+      </div>
+      <div class="right">
+        {% if student_data %}
+        <div class="form-container">
+          <div class="form-header">
+            <h1>Registration Form</h1>
+          </div>
+          <div class="form-body">
+            <form action="{{ url_for('save_form') }}" method="post">
+              <h2>Personal Information</h2>
+              <label for="fullName">Full Name:</label>
+              <input
+                type="text"
+                id="fullName"
+                name="Full_Name"
+                value="{{ student_data.get('Full_Name', '') }}"
+              />
+              <label for="address">Address:</label>
+              <input
+                type="text"
+                id="address"
+                name="City"
+                value="{{ student_data.get('City', '') }}"
+              />
+              <label for="dob">Date of Birth:</label>
+              <input
+                type="text"
+                id="dob"
+                name="Date_of_Birth"
+                value="{{ student_data.get('Date_of_Birth', '') }}"
+              />
+              <label for="previousSchool">Previous School Name:</label>
+              <input
+                type="text"
+                id="previousSchool"
+                name="School_Name"
+                value="{{ student_data.get('School_Name', '') }}"
+              />
+
+              <h2>Education Status</h2>
+              <label for="examYear">SEE Exam Year:</label>
+              <input
+                type="text"
+                id="examYear"
+                name="Exam_Year"
+                value="{{ student_data.get('Exam_Year', '') }}"
+              />
+              <label for="symbolNo">Symbol No:</label>
+              <input
+                type="text"
+                id="symbolNo"
+                name="Symbol_No"
+                value="{{ student_data.get('Symbol_No', '') }}"
+              />
+              <label for="yearOfCompletion">Year of Completion:</label>
+              <input
+                type="text"
+                id="yearOfCompletion"
+                name="Date_of_Issue"
+                value="{{ student_data.get('Date_of_Issue', '') }}"
+              />
+              <label for="gpa">Grade Point Average (GPA):</label>
+              <input
+                type="text"
+                id="gpa"
+                name="GPA"
+                value="{{ student_data.get('GPA', '') }}"
+              />
+
+              <h2>Subjects and Grades</h2>
+              <table>
+                <tr>
+                  <th>Subjects</th>
+                  <th>Final Grade</th>
+                </tr>
+                <tr>
+                  <td>Nepali</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="nepali"
+                      name="Nepali"
+                      value="{{ student_data.get('Nepali', '') }}"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>English</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="english"
+                      name="English"
+                      value="{{ student_data.get('English', '') }}"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Maths</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="maths"
+                      name="Maths"
+                      value="{{ student_data.get('Maths', '') }}"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Science</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="science"
+                      name="Science"
+                      value="{{ student_data.get('Science', '') }}"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Social</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="social"
+                      name="Social"
+                      value="{{ student_data.get('Social', '') }}"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Opt-I Mathematics</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="optI"
+                      name="Opt_I_Mathematics"
+                      value="{{ student_data.get('Opt_I_Mathematics', '') }}"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Opt-II Science</td>
+                  <td>
+                    <input
+                      type="text"
+                      id="optII"
+                      name="Opt_II_Science"
+                      value="{{ student_data.get('Opt_II_Science', '') }}"
+                    />
+                  </td>
+                </tr>
+              </table>
+              <button type="submit">Save</button>
+            </form>
+            <form action="{{ url_for('download_pdf') }}" method="get">
+              <input
+                type="hidden"
+                name="Full_Name"
+                value="{{ student_data.get('Full_Name', '') }}"
+              />
+              <input
+                type="hidden"
+                name="School_Name"
+                value="{{ student_data.get('School_Name', '') }}"
+              />
+              <input
+                type="hidden"
+                name="City"
+                value="{{ student_data.get('City', '') }}"
+              />
+              <input
+                type="hidden"
+                name="Exam_Year"
+                value="{{ student_data.get('Exam_Year', '') }}"
+              />
+              <input
+                type="hidden"
+                name="GPA"
+                value="{{ student_data.get('GPA', '') }}"
+              />
+              <input
+                type="hidden"
+                name="Date_of_Birth"
+                value="{{ student_data.get('Date_of_Birth', '') }}"
+              />
+              <input
+                type="hidden"
+                name="Symbol_No"
+                value="{{ student_data.get('Symbol_No', '') }}"
+              />
+              <input
+                type="hidden"
+                name="Date_of_Issue"
+                value="{{ student_data.get('Date_of_Issue', '') }}"
+              />
+              <input
+                type="hidden"
+                name="Nepali"
+                value="{{ student_data.get('Nepali', '') }}"
+              />
+              <input
+                type="hidden"
+                name="English"
+                value="{{ student_data.get('English', '') }}"
+              />
+              <input
+                type="hidden"
+                name="Maths"
+                value="{{ student_data.get('Maths', '') }}"
+              />
+              <input
+                type="hidden"
+                name="Science"
+                value="{{ student_data.get('Science', '') }}"
+              />
+              <input
+                type="hidden"
+                name="Social"
+                value="{{ student_data.get('Social', '') }}"
+              />
+              <input
+                type="hidden"
+                name="Opt_I_Mathematics"
+                value="{{ student_data.get('Opt_I_Mathematics', '') }}"
+              />
+              <input
+                type="hidden"
+                name="Opt_II_Science"
+                value="{{ student_data.get('Opt_II_Science', '') }}"
+              />
+              <button type="submit">Download PDF</button>
+            </form>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    Include jQuery and Toastr JS -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> -->
+
+    <!-- Your custom script -->
+    <!-- <script src="/static/script.js"></script> -->
+
+    <!-- Script to show toastr notifications -->
+    <!-- <script>
+      $(document).ready(function() {
+          {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                  {% for category, message in messages %}
+                      toastr["{{ '{{ category }}' }}"]("{{ '{{ message }}' }}", "", {
+                          "positionClass": "toast-top-right",
+                          "timeOut": "5000",
+                          "closeButton": true,
+                          "progressBar": true,
+                          "newestOnTop": true,
+                      });
+                  {% endfor %}
+              {% endif %}
+          {% endwith %}
+      });
+    </script>
+    
+  </body>
+</html>  -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Registration Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <h2>Upload Documents</h2>
+            <form id="uploadForm" action="{{ url_for('upload_files') }}" method="post" enctype="multipart/form-data">
+              
+               For certificate -->
+                <!-- <div class="upload-area">
+                    <img src="{{ url_for('static', filename='upload.png') }}" alt="Upload Icon" class="upload-icon" />
+                    <label for="certificate">Upload Certificate</label>
+                    <input type="file" id="certificate" name="certificate" accept="image/*" required onchange="previewImage(this, 'certificatePreview', 'certificateFileName')" />
+                     -->
+                    <!-- Group file name and image together in one container -->
+                    <!-- <div class="file-info">
+                        <p style="color: blueviolet;" id="certificateFileName" class="file-name"></p> <!-- File name directly above the image -->
+                        <!-- <img id="certificatePreview" class="preview" style="display: none;" />
+                    </div>
+                    
+                    <p>Drag & Drop files or Paste <strong>Ctrl+V</strong> or Upload</p>
+                    <p class="size-limit">up to <strong>20 MB</strong> image size</p>
+                </div>  -->
+                
+                <!-- For marksheet -->
+                <!-- <div class="upload-area">
+                    <img src="{{ url_for('static', filename='upload.png') }}" alt="Upload Icon" class="upload-icon" />
+                    <label for="marksheet">Upload Marksheet</label>
+                    <input type="file" id="marksheet" name="marksheet" accept="image/*" required onchange="previewImage(this, 'marksheetPreview', 'marksheetFileName')" />
+                     -->
+                    <!-- Group file name and image together in one container -->
+                    <!-- <div class="file-info">
+                        <p style="color: blueviolet;" id="marksheetFileName" class="file-name"></p> <!-- File name directly above the image -->
+                        <!-- <img id="marksheetPreview" class="preview" style="display: none;" />
+                    </div>
+                    
+                    <p>Drag & Drop files or Paste <strong>Ctrl+V</strong> or Upload</p>
+                    <p class="size-limit">up to <strong>20 MB</strong> image size</p>
+                </div>
+               
+                <button type="submit" class="browse-button">Submit</button>
+            </form>  -->
+            
+            <!-- Flash messages for validation -->
+            <!-- {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+             -->
+            <!-- Conditionally display uploaded images only if paths are available -->
+            <!-- {% if certificate_path and marksheet_path %}
+            <div class="uploaded-images">
+                <h3>Uploaded Images:</h3>
+                <img src="{{ url_for('static', filename=certificate_path.replace('uploads/', '')) }}" alt="Certificate" width="300">
+                <img src="{{ url_for('static', filename=marksheet_path.replace('uploads/', '')) }}" alt="Marksheet" width="300">
+            </div>
+            {% endif %}
+            
+            <div class="progress-container">
+                <div id="progress-bar"></div>
+            </div>
+        </div> -->
+        
+        <!-- Conditionally display the right section only if validation passed and student_data is available -->
+        <!-- {% if student_data %}
+        <div class="right">
+            <div class="form-container">
+                <div class="form-header">
+                    <h1>Registration Form</h1>
+                </div>
+                <div class="form-body">
+                    <form action="{{ url_for('save_form') }}" method="post">
+                        <h2>Personal Information</h2>
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" id="fullName" name="Full_Name" value="{{ student_data.get('Full_Name', '') }}">
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" name="City" value="{{ student_data.get('City', '') }}">
+                        <label for="dob">Date of Birth:</label>
+                        <input type="text" id="dob" name="Date_of_Birth" value="{{ student_data.get('Date_of_Birth', '') }}">
+                        <label for="previousSchool">Previous School Name:</label>
+                        <input type="text" id="previousSchool" name="School_Name" value="{{ student_data.get('School_Name', '') }}">
+
+                        <h2>Education Status</h2>
+                        <label for="examYear">SEE Exam Year:</label>
+                        <input type="text" id="examYear" name="Exam_Year" value="{{ student_data.get('Exam_Year', '') }}">
+                        <label for="symbolNo">Symbol No:</label>
+                        <input type="text" id="symbolNo" name="Symbol_No" value="{{ student_data.get('Symbol_No', '') }}">
+                        <label for="yearOfCompletion">Year of Completion:</label>
+                        <input type="text" id="yearOfCompletion" name="Date_of_Issue" value="{{ student_data.get('Date_of_Issue', '') }}">
+                        <label for="gpa">Grade Point Average (GPA):</label>
+                        <input type="text" id="gpa" name="GPA" value="{{ student_data.get('GPA', '') }}">
+
+                        <h2>Subjects and Grades</h2>
+                        <table>
+                            <tr>
+                                <th>Subjects</th>
+                                <th>Final Grade</th>
+                            </tr>
+                            <tr>
+                                <td>Nepali</td>
+                                <td><input type="text" id="nepali" name="Nepali" value="{{ student_data.get('Nepali', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>English</td>
+                                <td><input type="text" id="english" name="English" value="{{ student_data.get('English', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Maths</td>
+                                <td><input type="text" id="maths" name="Maths" value="{{ student_data.get('Maths', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Science</td>
+                                <td><input type="text" id="science" name="Science" value="{{ student_data.get('Science', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Social</td>
+                                <td><input type="text" id="social" name="Social" value="{{ student_data.get('Social', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Opt-I Mathematics</td>
+                                <td><input type="text" id="optI" name="Opt_I_Mathematics" value="{{ student_data.get('Opt_I_Mathematics', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Opt-II Science</td>
+                                <td><input type="text" id="optII" name="Opt_II_Science" value="{{ student_data.get('Opt_II_Science', '') }}"></td>
+                            </tr>
+                        </table>
+                        <button type="submit">Save</button>
+                    </form>
+                    
+                    <form action="{{ url_for('download_pdf') }}" method="get">
+                        <input type="hidden" name="Full_Name" value="{{ student_data.get('Full_Name', '') }}">
+                        <input type="hidden" name="School_Name" value="{{ student_data.get('School_Name', '') }}">
+                        <input type="hidden" name="City" value="{{ student_data.get('City', '') }}">
+                        <input type="hidden" name="Exam_Year" value="{{ student_data.get('Exam_Year', '') }}">
+                        <input type="hidden" name="GPA" value="{{ student_data.get('GPA', '') }}">
+                        <input type="hidden" name="Date_of_Birth" value="{{ student_data.get('Date_of_Birth', '') }}">
+                        <input type="hidden" name="Symbol_No" value="{{ student_data.get('Symbol_No', '') }}">
+                        <input type="hidden" name="Date_of_Issue" value="{{ student_data.get('Date_of_Issue', '') }}">
+                        <input type="hidden" name="Nepali" value="{{ student_data.get('Nepali', '') }}">
+                        <input type="hidden" name="English" value="{{ student_data.get('English', '') }}">
+                        <input type="hidden" name="Maths" value="{{ student_data.get('Maths', '') }}">
+                        <input type="hidden" name="Science" value="{{ student_data.get('Science', '') }}">
+                        <input type="hidden" name="Social" value="{{ student_data.get('Social', '') }}">
+                        <input type="hidden" name="Opt_I_Mathematics" value="{{ student_data.get('Opt_I_Mathematics', '') }}">
+                        <input type="hidden" name="Opt_II_Science" value="{{ student_data.get('Opt_II_Science', '') }}">
+                        <button type="submit">Download PDF</button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+     -->
+    <!-- Include jQuery and Toastr JS -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> -->
+    
+    <!-- Custom script for UI enhancements -->
+    <!-- <script src="/static/script.js"></script>
+</body>
+</html>  -->
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Registration Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <h2 style="color: #6f4d38;">Upload Documents</h2>
+            <form id="uploadForm" action="{{ url_for('upload_files') }}" method="post" enctype="multipart/form-data">
+                <div class="upload-area">
+                    <img src="{{ url_for('static', filename='upload.png') }}" alt="Upload Icon" class="upload-icon" />
+                    <label for="certificate">Upload Certificate</label>
+                    <input type="file" id="certificate" name="certificate" accept="image/*" required onchange="previewImage(this, 'certificatePreview', 'certificateFileName')" />
+                    <div class="file-info">
+                        <p style="color: blueviolet;" id="certificateFileName" class="file-name"></p>
+                        <img id="certificatePreview" class="preview" style="display: none;" />
+                    </div>
+                    <p>Drag & Drop files or Paste <strong>Ctrl+V</strong> or Upload</p>
+                    <p class="size-limit">up to <strong>20 MB</strong> image size</p>
+                </div>
+
+                <div class="upload-area">
+                    <img src="{{ url_for('static', filename='upload.png') }}" alt="Upload Icon" class="upload-icon" />
+                    <label className="label1" for="marksheet" style="color: 5e3023;">Upload Marksheet</label>
+                    <input type="file" id="marksheet" name="marksheet" accept="image/*" required onchange="previewImage(this, 'marksheetPreview', 'marksheetFileName')" />
+                    <div class="file-info">
+                        <p style="color: blueviolet;" id="marksheetFileName" class="file-name"></p>
+                        <img id="marksheetPreview" class="preview" style="display: none;" />
+                    </div>
+                    <p >Drag & Drop files or Paste <strong>Ctrl+V</strong> or Upload</p>
+                    <p class="size-limit">up to <strong>20 MB</strong> image size</p>
+                </div>
+
+                <button type="submit" class="browse-button">Submit</button>
+            </form>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+
+            {% if certificate_path and marksheet_path %}
+            <div class="uploaded-images">
+                <h3>Uploaded Images:</h3>
+                <img src="{{ url_for('static', filename=certificate_path.replace('uploads/', '')) }}" alt="Certificate" width="300">
+                <img src="{{ url_for('static', filename=marksheet_path.replace('uploads/', '')) }}" alt="Marksheet" width="300">
+            </div>
+            {% endif %}
+
+            <div class="progress-container">
+                <div id="progress-bar"></div>
+            </div>
+        </div>
+
+        {% if student_data %}
+        <div class="right">
+            <div class="form-container">
+                <div class="form-header">
+                    <h1 style="color: #6f4d38;">Registration Form</h1>
+                </div>
+                <div class="form-body">
+                    <form action="{{ url_for('save_form') }}" method="post">
+                        <h2 style="color: #77351c;">Personal Information</h2>
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" id="fullName" name="Full_Name" value="{{ student_data.get('Full_Name', '') }}">
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" name="City" value="{{ student_data.get('City', '') }}">
+                        <label for="dob">Date of Birth:</label>
+                        <input type="text" id="dob" name="Date_of_Birth" value="{{ student_data.get('Date_of_Birth', '') }}">
+                        <label for="previousSchool">Previous School Name:</label>
+                        <input type="text" id="previousSchool" name="School_Name" value="{{ student_data.get('School_Name', '') }}">
+
+                        <h2 style="color: #77351c;">Education Status</h2>
+                        <label for="examYear">SEE Exam Year:</label>
+                        <input type="text" id="examYear" name="Exam_Year" value="{{ student_data.get('Exam_Year', '') }}">
+                        <label for="symbolNo">Symbol No:</label>
+                        <input type="text" id="symbolNo" name="Symbol_No" value="{{ student_data.get('Symbol_No', '') }}">
+                        <label for="yearOfCompletion">Year of Completion:</label>
+                        <input type="text" id="yearOfCompletion" name="Date_of_Issue" value="{{ student_data.get('Date_of_Issue', '') }}">
+                        <label for="gpa">Grade Point Average (GPA):</label>
+                        <input type="text" id="gpa" name="GPA" value="{{ student_data.get('GPA', '') }}">
+
+                        <h2>Subjects and Grades</h2>
+                        <table>
+                            <tr>
+                                <th>Subjects</th>
+                                <th>Final Grade</th>
+                            </tr>
+                            <tr>
+                                <td>Nepali</td>
+                                <td><input type="text" id="nepali" name="Nepali" value="{{ student_data.get('Nepali', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>English</td>
+                                <td><input type="text" id="english" name="English" value="{{ student_data.get('English', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Maths</td>
+                                <td><input type="text" id="maths" name="Maths" value="{{ student_data.get('Maths', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Science</td>
+                                <td><input type="text" id="science" name="Science" value="{{ student_data.get('Science', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Social</td>
+                                <td><input type="text" id="social" name="Social" value="{{ student_data.get('Social', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Opt-I Mathematics</td>
+                                <td><input type="text" id="optI" name="Opt_I_Mathematics" value="{{ student_data.get('Opt_I_Mathematics', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Opt-II Science</td>
+                                <td><input type="text" id="optII" name="Opt_II_Science" value="{{ student_data.get('Opt_II_Science', '') }}"></td>
+                            </tr>
+                        </table>
+                        <button type="submit">Save</button>
+                    </form>
+                    
+                    <form action="{{ url_for('download_pdf') }}" method="get">
+                        <input type="hidden" name="Full_Name" value="{{ student_data.get('Full_Name', '') }}">
+                        <input type="hidden" name="School_Name" value="{{ student_data.get('School_Name', '') }}">
+                        <input type="hidden" name="City" value="{{ student_data.get('City', '') }}">
+                        <input type="hidden" name="Exam_Year" value="{{ student_data.get('Exam_Year', '') }}">
+                        <input type="hidden" name="GPA" value="{{ student_data.get('GPA', '') }}">
+                        <input type="hidden" name="Date_of_Birth" value="{{ student_data.get('Date_of_Birth', '') }}">
+                        <input type="hidden" name="Symbol_No" value="{{ student_data.get('Symbol_No', '') }}">
+                        <input type="hidden" name="Date_of_Issue" value="{{ student_data.get('Date_of_Issue', '') }}">
+                        <input type="hidden" name="Nepali" value="{{ student_data.get('Nepali', '') }}">
+                        <input type="hidden" name="English" value="{{ student_data.get('English', '') }}">
+                        <input type="hidden" name="Maths" value="{{ student_data.get('Maths', '') }}">
+                        <input type="hidden" name="Science" value="{{ student_data.get('Science', '') }}">
+                        <input type="hidden" name="Social" value="{{ student_data.get('Social', '') }}">
+                        <input type="hidden" name="Opt_I_Mathematics" value="{{ student_data.get('Opt_I_Mathematics', '') }}">
+                        <input type="hidden" name="Opt_II_Science" value="{{ student_data.get('Opt_II_Science', '') }}">
+                        <button type="submit">Download PDF</button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    
+ 
+    <script src="/static/script.js"></script>
+
+   
+   
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+   <script>
+      $(document).ready(function() {
+          {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                  {% for category, message in messages %}
+                      toastr["{{ category }}"]("{{ message }}", "", {
+                          "positionClass": "toast-top-right",
+                          "timeOut": "5000",
+                          "closeButton": true,
+                          "progressBar": true,
+                          "newestOnTop": true,
+                      });
+                  {% endfor %}
+              {% endif %}
+          {% endwith %}
+      });
+    </script> -->
+<!-- </body>
+</html> --> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Registration Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+</head>
+<body>
+    <div class="container">
+        <div id="message-container"></div>
+        
+        <div class="left">
+            <h2 style="color: #6f4d38;">Upload Documents</h2>
+            <form id="uploadForm" enctype="multipart/form-data">
+                <div class="upload-area">
+                    <img src="{{ url_for('static', filename='upload.png') }}" alt="Upload Icon" class="upload-icon" />
+                    <label for="certificate">Upload Certificate</label>
+                    <input type="file" id="certificate" name="certificate" accept="image/*" required onchange="previewImage(this, 'certificatePreview', 'certificateFileName')" />
+                    <div class="file-info">
+                        <p style="color: blueviolet;" id="certificateFileName" class="file-name"></p>
+                        <img id="certificatePreview" class="preview" style="display: none;" />
+                    </div>
+                    <p>Drag & Drop files or Paste <strong>Ctrl+V</strong> or Upload</p>
+                    <p class="size-limit">up to <strong>20 MB</strong> image size</p>
+                </div>
+
+                <div class="upload-area">
+                    <img src="{{ url_for('static', filename='upload.png') }}" alt="Upload Icon" class="upload-icon" />
+                    <label className="label1" for="marksheet" style="color: #5e3023;">Upload Marksheet</label>
+                    <input type="file" id="marksheet" name="marksheet" accept="image/*" required onchange="previewImage(this, 'marksheetPreview', 'marksheetFileName')" />
+                    <div class="file-info">
+                        <p style="color: blueviolet;" id="marksheetFileName" class="file-name"></p>
+                        <img id="marksheetPreview" class="preview" style="display: none;" />
+                    </div>
+                    <p>Drag & Drop files or Paste <strong>Ctrl+V</strong> or Upload</p>
+                    <p class="size-limit">up to <strong>20 MB</strong> image size</p>
+                </div>
+
+                <button type="submit" class="browse-button">Submit</button>
+            </form>
+            <div class="progress-container" style="display: none;">
+                <div id="progress-bar"></div>
+            </div>
+        </div>
+
+        <div class="right" style="display: none;">
+            <div class="form-container">
+                <div class="form-header">
+                    <h1>Registration Form</h1>
+                </div>
+                <div class="form-body">
+                    <form id="saveForm">
+                        <h2>Personal Information</h2>
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" id="fullName" name="Full_Name">
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" name="City">
+                        <label for="dob">Date of Birth:</label>
+                        <input type="text" id="dob" name="Date_of_Birth">
+                        <label for="previousSchool">Previous School Name:</label>
+                        <input type="text" id="previousSchool" name="School_Name">
+
+                        <h2>Education Status</h2>
+                        <label for="examYear">SEE Exam Year:</label>
+                        <input type="text" id="examYear" name="Exam_Year">
+                        <label for="symbolNo">Symbol No:</label>
+                        <input type="text" id="symbolNo" name="Symbol_No">
+                        <label for="yearOfCompletion">Year of Completion:</label>
+                        <input type="text" id="yearOfCompletion" name="Date_of_Issue">
+                        <label for="gpa">Grade Point Average (GPA):</label>
+                        <input type="text" id="gpa" name="GPA">
+
+                        <h2>Subjects and Grades</h2>
+                        <table>
+                            <tr>
+                                <th>Subjects</th>
+                                <th>Final Grade</th>
+                            </tr>
+                            <tr>
+                                <td>Nepali</td>
+                                <td><input type="text" id="nepali" name="Nepali"></td>
+                            </tr>
+                            <tr>
+                                <td>English</td>
+                                <td><input type="text" id="english" name="English"></td>
+                            </tr>
+                            <tr>
+                                <td>Maths</td>
+                                <td><input type="text" id="maths" name="Maths"></td>
+                            </tr>
+                            <tr>
+                                <td>Science</td>
+                                <td><input type="text" id="science" name="Science"></td>
+                            </tr>
+                            <tr>
+                                <td>Social</td>
+                                <td><input type="text" id="social" name="Social"></td>
+                            </tr>
+                            <tr>
+                                <td>Opt-I Mathematics</td>
+                                <td><input type="text" id="optI" name="Opt_I_Mathematics"></td>
+                            </tr>
+                            <tr>
+                                <td>Opt-II Science</td>
+                                <td><input type="text" id="optII" name="Opt_II_Science"></td>
+                            </tr>
+                        </table>
+                        <button type="submit">Save</button>
+                    </form>
+                    
+                    <form id="downloadForm">
+                        <input type="hidden" name="Full_Name" id="downloadFullName">
+                        <input type="hidden" name="School_Name" id="downloadSchoolName">
+                        <input type="hidden" name="City" id="downloadCity">
+                        <input type="hidden" name="Exam_Year" id="downloadExamYear">
+                        <input type="hidden" name="GPA" id="downloadGPA">
+                        <input type="hidden" name="Date_of_Birth" id="downloadDOB">
+                        <input type="hidden" name="Symbol_No" id="downloadSymbolNo">
+                        <input type="hidden" name="Date_of_Issue" id="downloadDateOfIssue">
+                        <input type="hidden" name="Nepali" id="downloadNepali">
+                        <input type="hidden" name="English" id="downloadEnglish">
+                        <input type="hidden" name="Maths" id="downloadMaths">
+                        <input type="hidden" name="Science" id="downloadScience">
+                        <input type="hidden" name="Social" id="downloadSocial">
+                        <input type="hidden" name="Opt_I_Mathematics" id="downloadOptI">
+                        <input type="hidden" name="Opt_II_Science" id="downloadOptII">
+                        <button type="submit">Download PDF</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

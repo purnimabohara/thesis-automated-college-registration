@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your College Name</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+</head>
+<body>
+   
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.jpg') }}" alt="College Logo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="service.html">About NAST</a></li>
+            <li><a href="about.html">Academics</a></li>
+          
+            <li><a href="#"> Services</a></li>
+            
+           
+        </ul>
+    </nav>
+  
+    
+
+    <section class="hero">
+        <div class="hero-overlay">
+           
+                <div class="col-lg-6 py-5 home-text">
+                    <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-0 t1">
+                        <span style="font-size: 35px; font-weight: normal;">Start Your Journey at</span><br />
+                        <span style="font-weight: normal; margin-left: 30%;font-size: 40px; ">NAST</span>
+                    </h1>
+                    <div class="d-flex align-items-center my-4 t2" style="margin-top: 0;">
+                        <p>We're here to help you take the first step towards your academic success!</p>
+                    </div>
+                    <button class="btn-details-home">Apply now</button>
+                </div>
+               
+            
+        </div>
+    </section> 
+  
+   
+
+    
+    <section class="tour">
+        <h2 >College Administration</h2>
+        <div class="tour-map">
+            <img src="map.png" alt="Campus Map">
+            <div class="tour-buttons">
+                <button class="btn visit">Schedule a Visit</button>
+                <button class="btn apply">Apply Now</button>
+            </div>
+        </div>
+    </section>
+
+   
+    <section class="accreditation">
+        <p>An Accredited, Nonprofit Christian University in Phoenix, Arizona</p>
+        <p>Earn an affordable private education online or on campus with GCU</p>
+        <div class="degree-options">
+            <div class="degree-option">
+                <img src="degree1.png" alt="Degree">
+                <p>Grand Canyon Theological Seminary</p>
+            </div>
+            <div class="degree-option">
+                <img src="degree2.png" alt="Degree">
+                <p>Sociology Degree</p>
+            </div>
+            <div class="degree-option">
+                <img src="degree3.png" alt="Degree">
+                <p>Doctor of Nursing Practice</p>
+            </div>
+            <div class="degree-option">
+                <img src="degree4.png" alt="Degree">
+                <p>Online MBA Degrees</p>
+            </div>
+        </div>
+    </section>
+
+  
+    <section class="events">
+        <h2>Upcoming Events</h2>
+        <div class="event-cards">
+            <div class="event-card">
+                <img src="event1.png" alt="Event">
+                <p>Spring Faculty Chamber Recital</p>
+                <a href="#">View Details</a>
+            </div>
+            <div class="event-card">
+                <img src="event2.png" alt="Event">
+                <p>GCU Softball Vs. Seattle U</p>
+                <a href="#">View Details</a>
+            </div>
+            <div class="event-card">
+                <img src="event3.png" alt="Event">
+                <p>Grand Canyon University Career Fair</p>
+                <a href="#">View Details</a>
+            </div>
+        </div>
+    </section>
+
+   
+    <section class="blogs-news">
+        <div class="blogs">
+            <h2>GCU Blogs</h2>
+            <div class="blog-posts">
+                <div class="blog-post">
+                    <img src="blog1.png" alt="Blog">
+                    <p>Post Title Here</p>
+                    <a href="#">Read More</a>
+                </div>
+                
+            </div>
+        </div>
+        <div class="news">
+            <h2>In the News at GCU</h2>
+            <div class="news-posts">
+                <div class="news-post">
+                    <img src="news1.png" alt="News">
+                    <p>News Title Here</p>
+                    <a href="#">Read More</a>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+   
+    <footer>
+        <p>&copy; 2024 Your College Name. All rights reserved.</p>
+    </footer>
+</body>
+</html>

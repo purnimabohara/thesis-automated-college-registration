@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Registration Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <h2>Upload Documents</h2>
+            <form action="{{ url_for('upload_files') }}" method="post" enctype="multipart/form-data">
+                <label for="certificate">Upload Certificate:</label>
+                <input type="file" id="certificate" name="certificate" accept="image/*" required><br><br>
+                <label for="marksheet">Upload Marksheet:</label>
+                <input type="file" id="marksheet" name="marksheet" accept="image/*" required><br><br>
+                <button type="submit">Submit</button>
+            </form>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            {% if certificate_path and marksheet_path %}
+            <div class="uploaded-images">
+                <h3>Uploaded Images:</h3>
+                <img src="{{ url_for('static', filename=certificate_path.replace('uploads/', '')) }}" alt="Certificate" width="300">
+                <img src="{{ url_for('static', filename=marksheet_path.replace('uploads/', '')) }}" alt="Marksheet" width="300">
+            </div>
+            {% endif %}
+        </div>
+        <div class="right">
+            {% if student_data %}
+            <div class="form-container">
+                <div class="form-header">
+                    <h1>Registration Form</h1>
+                </div>
+                <div class="form-body">
+                    <form action="{{ url_for('save_form') }}" method="post">
+                        <h2>Personal Information</h2>
+                        <label for="fullName">Full Name:</label>
+                        <input type="text" id="fullName" name="Full_Name" value="{{ student_data.get('Full_Name', '') }}"><br><br>
+                        <label for="address">Address:</label>
+                        <input type="text" id="address" name="City" value="{{ student_data.get('City', '') }}"><br><br>
+                        <label for="dob">Date of Birth:</label>
+                        <input type="text" id="dob" name="Date_of_Birth" value="{{ student_data.get('Date_of_Birth', '') }}"><br><br>
+                        <label for="previousSchool">Previous School Name:</label>
+                        <input type="text" id="previousSchool" name="School_Name" value="{{ student_data.get('School_Name', '') }}"><br><br>
+
+                        <h2>Education Status</h2>
+                        <label for="examYear">SEE Exam Year:</label>
+                        <input type="text" id="examYear" name="Exam_Year" value="{{ student_data.get('Exam_Year', '') }}"><br><br>
+                        <label for="symbolNo">Symbol No:</label>
+                        <input type="text" id="symbolNo" name="Symbol_No" value="{{ student_data.get('Symbol_No', '') }}"><br><br>
+                        <label for="yearOfCompletion">Year of Completion:</label>
+                        <input type="text" id="yearOfCompletion" name="Date_of_Issue" value="{{ student_data.get('Date_of_Issue', '') }}"><br><br>
+                        <label for="gpa">Grade Point Average (GPA):</label>
+                        <input type="text" id="gpa" name="GPA" value="{{ student_data.get('GPA', '') }}"><br><br>
+
+                        <h2>Subjects and Grades</h2>
+                        <table>
+                            <tr>
+                                <th>Subjects</th>
+                                <th>Final Grade</th>
+                            </tr>
+                            <tr>
+                                <td>Nepali</td>
+                                <td><input type="text" id="nepali" name="Nepali" value="{{ student_data.get('Nepali', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>English</td>
+                                <td><input type="text" id="english" name="English" value="{{ student_data.get('English', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Maths</td>
+                                <td><input type="text" id="maths" name="Maths" value="{{ student_data.get('Maths', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Science</td>
+                                <td><input type="text" id="science" name="Science" value="{{ student_data.get('Science', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Social</td>
+                                <td><input type="text" id="social" name="Social" value="{{ student_data.get('Social', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Opt-I Mathematics</td>
+                                <td><input type="text" id="optI" name="Opt_I_Mathematics" value="{{ student_data.get('Opt_I_Mathematics', '') }}"></td>
+                            </tr>
+                            <tr>
+                                <td>Opt-II Science</td>
+                                <td><input type="text" id="optII" name="Opt_II_Science" value="{{ student_data.get('Opt_II_Science', '') }}"></td>
+                            </tr>
+                        </table>
+                        <button type="submit">Save</button>
+                    </form>
+                    <form action="{{ url_for('download_pdf') }}" method="get">
+                        <input type="hidden" name="Full_Name" value="{{ student_data.get('Full_Name', '') }}">
+                        <input type="hidden" name="School_Name" value="{{ student_data.get('School_Name', '') }}">
+                        <input type="hidden" name="City" value="{{ student_data.get('City', '') }}">
+                        <input type="hidden" name="Exam_Year" value="{{ student_data.get('Exam_Year', '') }}">
+                        <input type="hidden" name="GPA" value="{{ student_data.get('GPA', '') }}">
+                        <input type="hidden" name="Date_of_Birth" value="{{ student_data.get('Date_of_Birth', '') }}">
+                        <input type="hidden" name="Symbol_No" value="{{ student_data.get('Symbol_No', '') }}">
+                        <input type="hidden" name="Date_of_Issue" value="{{ student_data.get('Date_of_Issue', '') }}">
+                        <input type="hidden" name="Nepali" value="{{ student_data.get('Nepali', '') }}">
+                        <input type="hidden" name="English" value="{{ student_data.get('English', '') }}">
+                        <input type="hidden" name="Maths" value="{{ student_data.get('Maths', '') }}">
+                        <input type="hidden" name="Science" value="{{ student_data.get('Science', '') }}">
+                        <input type="hidden" name="Social" value="{{ student_data.get('Social', '') }}">
+                        <input type="hidden" name="Opt_I_Mathematics" value="{{ student_data.get('Opt_I_Mathematics', '') }}">
+                        <input type="hidden" name="Opt_II_Science" value="{{ student_data.get('Opt_II_Science', '') }}">
+                        <button type="submit">Download PDF</button>
+                    </form>
+                    
+                    
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+
