@@ -33,7 +33,7 @@ This end-to-end system automates the student registration workflow for education
 
 ## 🛠️ **Tech Stack**
 
-- **Languages & Libraries**: Python, OpenCV, Pytesseract, ReportLab, Flask, PyMongo  
+- **Languages & Libraries**: Python, OpenCV, Pytesseract, ReportLab, Flask, PyMongo, Pandas, NumPy
 - **Database**: MongoDB  
 - **UI Design (Prototype)**: Figma  
 - **IDE**: Visual Studio Code
