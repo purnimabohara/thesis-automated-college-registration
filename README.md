@@ -5,13 +5,13 @@
 
 ---
 
-## 📌 **Overview**
+##  **Overview**
 
 This end-to-end system automates the student registration workflow for educational institutions using **Python-based data extraction, validation, and document generation**. It combines **computer vision and OCR technologies** to streamline manual entry from academic certificates—reducing time, errors, and improving administrative efficiency.
 
 ---
 
-## 🎯 **Project Objectives**
+##  **Project Objectives**
 
 - Automate manual form-filling from Grade 10 mark sheets.
 - Enhance data accuracy using OCR and image preprocessing.
@@ -20,7 +20,7 @@ This end-to-end system automates the student registration workflow for education
 
 ---
 
-## 🧠 **Core Functionalities**
+##  **Core Functionalities**
 
 - **OCR-Based Data Capture**: Extracts symbol number, grades, name, and issue date from scanned documents.
 - **Image Preprocessing**: Uses OpenCV for grayscale conversion, noise reduction, and thresholding.
@@ -52,7 +52,7 @@ This end-to-end system automates the student registration workflow for education
 
 ---
 
-## 📊 **Real-World Impact**
+##  **Real-World Impact**
 
 This system is highly relevant for institutions (especially in Nepal) digitizing their administrative workflows. It supports:
 - Bulk document intake with higher speed and reliability
@@ -61,24 +61,7 @@ This system is highly relevant for institutions (especially in Nepal) digitizing
 
 ---
 
-## 📁 **Repository Structure**
-
-📂 thesis-automated-college-registration
-├── ocr_module/ # Image preprocessing and OCR
-├── flask_app/ # Web interface (Flask)
-├── pdf_generator/ # PDF generation scripts
-├── data/ # Sample scanned documents
-├── outputs/ # Generated PDF forms
-├── requirements.txt # Python dependencies
-└── README.md # Project documentation
-
-yaml
-Copy
-Edit
-
----
-
-## 🖼️ **Sample Screenshots**
+## 🖼 **Sample Screenshots**
 
 <p align="center">
   <img src="images/system_demo_1.png" width="45%" alt="OCR Screenshot">
@@ -88,7 +71,7 @@ Edit
 
 ---
 
-## 🚀 **Skills Demonstrated**
+##  **Skills Demonstrated**
 
 - **Python Development**: Built modular, reusable OCR + data pipeline.
 - **Data Handling**: Designed validation logic for transforming unstructured input into structured output.
@@ -108,7 +91,7 @@ Edit
 
 ---
 
-## 🧪 **Getting Started**
+##  **Getting Started**
 
 ```bash
 # Clone the repository
