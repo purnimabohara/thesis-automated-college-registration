@@ -31,7 +31,7 @@ This end-to-end system automates the student registration workflow for education
 
 ---
 
-## 🛠️ **Tech Stack**
+##  **Tech Stack**
 
 - **Languages & Libraries**: Python, OpenCV, Pytesseract, ReportLab, Flask, PyMongo, Pandas, NumPy
 - **Database**: MongoDB  
@@ -40,7 +40,7 @@ This end-to-end system automates the student registration workflow for education
 
 ---
 
-## 🧭 **Workflow Summary**
+##  **Workflow Summary**
 
 1. **Upload Certificate**: Scanned Grade 10 mark sheet is uploaded.
 2. **Preprocessing**: Image quality enhanced via OpenCV (grayscale, blur, edge detection).
