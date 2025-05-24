@@ -64,7 +64,7 @@ This system is highly relevant for institutions (especially in Nepal) digitizing
 ## 🖼 **Sample Screenshots**
 
 <p align="center">
-  <img src="images/system_demo_1.png" width="45%" alt="OCR Screenshot">
+  <img src="static/home.png" width="45%" alt="OCR Screenshot">
   &nbsp;
   <img src="images/system_demo_2.png" width="45%" alt="Generated PDF Screenshot">
 </p>
